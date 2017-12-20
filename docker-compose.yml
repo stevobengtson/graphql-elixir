@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  web:
+    build: .
+    ports:
+      - "4000:4000"
+    command: mix phx.server
+    environment:
+      - MIX_ENV=dev
+      - PORT=4000
+      - VIRTUAL_HOST=graphql.elixir.localhost
+    volumes:
+      - .:/app
+    links:
+      - db
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
