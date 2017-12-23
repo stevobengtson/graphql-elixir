@@ -14,7 +14,8 @@ config :graphql_elixir, GraphqlElixirWeb.Endpoint,
 # Configure your database
 config :graphql_elixir, GraphqlElixir.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "graphql_elixir_prod",
+  username: System.get_env("DB_USER") || "${DB_USER}",
+  password: System.get_env("DB_PASSWORD") || "${DB_PASSWORD}",
+  database: "graphql_elixir",
+  hostname: System.get_env("DB_HOST") || "${DB_HOST}",
   pool_size: 15

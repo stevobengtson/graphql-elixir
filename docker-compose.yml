@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
   nginx-proxy:
@@ -10,17 +10,16 @@ services:
 
   web:
     build: .
-    ports:
-      - "4000:4000"
     command: mix phx.server
     environment:
       - MIX_ENV=dev
       - PORT=4000
       - VIRTUAL_HOST=graphql.elixir.localhost
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOST=db
     volumes:
       - .:/app
-    links:
-      - db
 
   db:
     image: postgres

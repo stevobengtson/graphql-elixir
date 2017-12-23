@@ -39,8 +39,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :graphql_elixir, GraphqlElixir.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: System.get_env("DB_USER"),
+  password: System.get_env("DB_PASSWORD"),
   database: "graphql_elixir_dev",
-  hostname: "db",
+  hostname: System.get_env("DB_HOST"),  
   pool_size: 10
